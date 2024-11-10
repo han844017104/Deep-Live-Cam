@@ -179,11 +179,11 @@ def select_target_path() -> None:
 
 def select_output_path(start: Callable[[], None]) -> None:
     global RECENT_DIRECTORY_OUTPUT, img_ft, vid_ft
-
+    temp_file_split = str.split(modules.globals.target_path, "/")
     if is_image(modules.globals.target_path):
-        output_path = ctk.filedialog.asksaveasfilename(title='save image output file', filetypes=[img_ft], defaultextension='.png', initialfile='output.png', initialdir=RECENT_DIRECTORY_OUTPUT)
+        output_path = ctk.filedialog.asksaveasfilename(title='save image output file', filetypes=[img_ft], defaultextension='.png', initialfile=temp_file_split[temp_file_split.__len__() - 1] + '_faked.png', initialdir=RECENT_DIRECTORY_OUTPUT)
     elif is_video(modules.globals.target_path):
-        output_path = ctk.filedialog.asksaveasfilename(title='save video output file', filetypes=[vid_ft], defaultextension='.mp4', initialfile='output.mp4', initialdir=RECENT_DIRECTORY_OUTPUT)
+        output_path = ctk.filedialog.asksaveasfilename(title='save video output file', filetypes=[vid_ft], defaultextension='.mp4', initialfile=temp_file_split[temp_file_split.__len__() - 1]+'_faked.mp4', initialdir=RECENT_DIRECTORY_OUTPUT)
     else:
         output_path = None
     if output_path:
