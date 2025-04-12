@@ -623,7 +623,7 @@ def select_output_path(start: Callable[[], None]) -> None:
             title="save image output file",
             filetypes=[img_ft],
             defaultextension=".png",
-            initialfile="output.png",
+            initialfile=temp_file_split[temp_file_split.__len__() - 1] + '_faked.png',
             initialdir=RECENT_DIRECTORY_OUTPUT,
         )
     elif is_video(modules.globals.target_path):
@@ -631,7 +631,7 @@ def select_output_path(start: Callable[[], None]) -> None:
             title="save video output file",
             filetypes=[vid_ft],
             defaultextension=".mp4",
-            initialfile="output.mp4",
+            initialfile=temp_file_split[temp_file_split.__len__() - 1]+'_faked.mp4',
             initialdir=RECENT_DIRECTORY_OUTPUT,
         )
     else:

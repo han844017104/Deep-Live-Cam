@@ -1,0 +1,3 @@
+python run.py --execution-provider cuda  --execution-threads 16 --max-memory 32 -s "X:\Videos\fake\cy\sfz -.jpg" -o "X:\Videos\fake" -t "X:\Videos\fake\waiting\BBC Makes Her Eyes Roll- Brutal Sex Porn_2.mp4" --keep-audio  --video-quality 0 --keep-fps
+python run.py --execution-provider cuda  --execution-threads 16 --max-memory 32 -s "X:\Videos\fake\cy\sfz -.jpg" -o "X:\Videos\fake" -t "X:\Videos\fake\waiting\Partygirl fucked against the car.mp4" --keep-audio  --video-quality 0 --keep-fps
+python run.py --execution-provider cuda  --execution-threads 16 --max-memory 32 -s "X:\Videos\fake\cy\sfz -.jpg" -o "X:\Videos\fake" -t "X:\Videos\fake\waiting\Wife DP'd at party..m4v" --keep-audio  --video-quality 0 --keep-fps
