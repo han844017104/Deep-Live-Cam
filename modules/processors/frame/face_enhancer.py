@@ -9,9 +9,10 @@ import modules.processors.frame.core
 from modules.core import update_status
 from modules.face_analyser import get_one_face
 from modules.typing import Frame, Face
+import platform
+import torch
 from modules.utilities import (
     conditional_download,
-    resolve_relative_path,
     is_image,
     is_video,
 )
@@ -21,9 +22,14 @@ THREAD_SEMAPHORE = threading.Semaphore()
 THREAD_LOCK = threading.Lock()
 NAME = "DLC.FACE-ENHANCER"
 
+abs_dir = os.path.dirname(os.path.abspath(__file__))
+models_dir = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.dirname(abs_dir))), "models"
+)
+
 
 def pre_check() -> bool:
-    download_directory_path = resolve_relative_path("..\models")
+    download_directory_path = models_dir
     conditional_download(
         download_directory_path,
         [
@@ -47,12 +53,18 @@ def get_face_enhancer() -> Any:
 
     with THREAD_LOCK:
         if FACE_ENHANCER is None:
-            if os.name == "nt":
-                model_path = resolve_relative_path("..\models\GFPGANv1.4.pth")
-                # todo: set models path https://github.com/TencentARC/GFPGAN/issues/399
-            else:
-                model_path = resolve_relative_path("../models/GFPGANv1.4.pth")
-            FACE_ENHANCER = gfpgan.GFPGANer(model_path=model_path, upscale=1)  # type: ignore[attr-defined]
+            model_path = os.path.join(models_dir, "GFPGANv1.4.pth")
+            
+            match platform.system():
+                case "Darwin":  # Mac OS
+                    if torch.backends.mps.is_available():
+                        mps_device = torch.device("mps")
+                        FACE_ENHANCER = gfpgan.GFPGANer(model_path=model_path, upscale=1, device=mps_device)  # type: ignore[attr-defined]
+                    else:
+                        FACE_ENHANCER = gfpgan.GFPGANer(model_path=model_path, upscale=1)  # type: ignore[attr-defined]
+                case _:  # Other OS
+                    FACE_ENHANCER = gfpgan.GFPGANer(model_path=model_path, upscale=1)  # type: ignore[attr-defined]
+
     return FACE_ENHANCER
 
 

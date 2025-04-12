@@ -9,7 +9,7 @@ file_types = [
     ("Video", ("*.mp4", "*.mkv")),
 ]
 
-souce_target_map = []
+source_target_map = []
 simple_map = {}
 
 source_path = None
@@ -26,7 +26,7 @@ nsfw_filter = False
 video_encoder = None
 video_quality = None
 live_mirror = False
-live_resizable = False
+live_resizable = True
 max_memory = None
 execution_providers: List[str] = []
 execution_threads = None
